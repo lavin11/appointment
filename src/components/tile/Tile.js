@@ -1,19 +1,13 @@
 import React from "react";
 
-export const Tile = (props) => {
-  const values = Object.values(props.object);
-  console.log(values);
+export const Tile = ({ tile }) => {
   return (
     <div className="tile-container">
-      {
-        values.map(element => {
-          if(typeof element === 'object') {
-            return <p className = "tile-title">{JSON.stringify(element)}</p>
-          } else{
-            return <p className= "tile">{element}</p>
-          }
-        })
-      }
+      {Object.values(tile).map((value, index) => (
+        <p key={index} className={`${index === 0 ? "tile-title" : ""} tile`}>
+          {value}
+        </p>
+      ))}
     </div>
   );
 };

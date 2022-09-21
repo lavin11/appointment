@@ -1,5 +1,6 @@
 import React from "react";
-import {ContactPicker} from "../contactPicker/ContactPicker.js";
+
+import { ContactPicker } from "../contactPicker/ContactPicker";
 
 export const AppointmentForm = ({
   contacts,
@@ -20,29 +21,55 @@ export const AppointmentForm = ({
     return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
   };
 
-  const handleTitleChange = ({target}) => {
-    const {name, value} = target;
-    setTitle(value);
-  };
-
-  const handleDateChange = ({target}) => {
-    const {name, value} = target;
-    setDate(value);
-  };
-
-  const handleTimeChange = ({target}) => {
-    const {name, value} = target;
-    setTime(value);
+  const getContactNames = () => {
+    return contacts.map((contact) => contact.name);
   };
 
   return (
-    //AppointmentForm
     <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Enter Title" value={title} onChange = {handleTitleChange} />
-      <ContactPicker contacts = {contacts} setContact = {setContact} />
-      <input type="date" placeholder= "enter date" value = {date} min = {getTodayString} onChange = {handleDateChange} />
-      <input type = "time" placeholder="Enter time" value={time} onChange = {handleTimeChange} />
-      <input type = "submit" value = "Submit"/>
+      <label>
+        <input
+          type="text"
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          placeholder="Appointment Title"
+        />
+      </label>
+      <br />
+      <label>
+        <ContactPicker
+          name="contact"
+          value={contact}
+          contacts={getContactNames()}
+          onChange={(e) => setContact(e.target.value)}
+          placeholder="Appointment With"
+        />
+      </label>
+      <br />
+      <label>
+        <input
+          type="date"
+          name="date"
+          min={getTodayString()}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <label>
+        <input
+          type="time"
+          name="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <input type="submit" value="Add Appointment" />
     </form>
   );
 };

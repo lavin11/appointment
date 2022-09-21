@@ -1,16 +1,13 @@
 import React from "react";
-import {Tile} from "../tile/Tile.js";
 
-export const TileList = (props) => {
+import { Tile } from "../tile/Tile";
+
+export const TileList = ({ tiles }) => {
   return (
     <div>
-      {
-        props.list.map((object,index) => 
-          {
-            <Tile object = {object} key = {index} />
-          }
-        )
-      }
+      {tiles.map((tile, index) => (
+        <Tile key={index} tile={tile} />
+      ))}
     </div>
   );
 };
